@@ -2,30 +2,22 @@ const express = require('express')
 const breads = express.Router()
 const Bread = require('../models/bread.js')
 
+
+//Index
 breads.get('/', (req, res) => {
     res.render('Index', 
     {
         breads: Bread,
         title: 'Index Page'
     })
+    res.status(303).redirect('/breads')
     // res.send(Bread)
 })
 
 //New
 breads.get('/new', (req, res) => {
     res.render('new')
-})
-
-//Show
-breads.get('/:arrayIndex', (req, res) => {
-    if (Bread[req.params.arrayIndex]) {
-        res.render('Show', {
-            bread: Bread[req.params.arrayIndex]
-        })
-    } else {
-        res.render('404 Error: Page not found')
-    }
-    // res.send(Bread[req.params.arrayIndex])
+    res.status(303).redirect('/breads')
 })
 
 //Create
@@ -41,5 +33,25 @@ breads.post('/', (req, res) => {
     Bread.push(req.body)
     res.redirect('/breads')
 })
+
+//Delete
+breads.delete('/:indexArray', (req, res) => {
+    Bread.splice(req.params.indexArray, 1)
+    res.status(303).redirect('/breads')
+})
+
+//Show
+breads.get('/:arrayIndex', (req, res) => {
+    if (Bread[req.params.arrayIndex]) {
+        res.render('Show', {
+            bread: Bread[req.params.arrayIndex],
+            index: req.params.arrayIndex,
+        })
+    } else {
+        res.render('404')
+    }
+    // res.send(Bread[req.params.arrayIndex])
+})
+
 
 module.exports = breads

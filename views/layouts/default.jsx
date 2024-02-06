@@ -10,11 +10,13 @@ function Default(html) {
                 <link rel="stylesheet" href="/public/main.css"/>
             </head>
             <body>
-                <header>
-                    <h1><a href="/breads">Back to Breads</a></h1>
-                </header>
-                <div className="container">
-                    {html.children}
+                <div className='wrapper'>
+                    <header>
+                        <h1><a href="/breads">BreadCRUD</a></h1>
+                    </header>
+                    <div className="container">
+                        {html.children}
+                    </div>
                 </div>
             </body>
         </html>
